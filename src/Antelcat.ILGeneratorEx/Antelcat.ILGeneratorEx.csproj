@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Update="..\..\extern\Antelcat.Shared\src\Shared\IL\Extensions\ILExtension.g.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>ILExtension.g.cs</LastGenOutput>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="..\..\extern\Antelcat.Shared\src\Shared\IL\Extensions\ILExtension.g.cs">
+        <DependentUpon>ILExtension.g.tt</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <Import Project="..\..\extern\Antelcat.Shared\src\Shared\IL\Antelcat.Shared.IL.projitems" Label="Shared" />
+
+</Project>

@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Antelcat.Shared.IL", "..\extern\Antelcat.Shared\src\Shared\IL\Antelcat.Shared.IL.shproj", "{3AB3FD3D-C47D-4B09-87D7-299ABCE37BD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelcat.ILGeneratorEx", "Antelcat.ILGeneratorEx\Antelcat.ILGeneratorEx.csproj", "{8C55FE54-DBEC-4975-AA18-EC1953A8CC61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelcat.ILGeneratorEx.Test", "Antelcat.ILGeneratorEx.Test\Antelcat.ILGeneratorEx.Test.csproj", "{F2240D5A-5D97-4900-A433-90D090B73935}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C55FE54-DBEC-4975-AA18-EC1953A8CC61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C55FE54-DBEC-4975-AA18-EC1953A8CC61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AB3FD3D-C47D-4B09-87D7-299ABCE37BD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AB3FD3D-C47D-4B09-87D7-299ABCE37BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2240D5A-5D97-4900-A433-90D090B73935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2240D5A-5D97-4900-A433-90D090B73935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
