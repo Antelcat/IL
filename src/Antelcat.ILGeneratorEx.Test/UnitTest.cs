@@ -24,6 +24,13 @@ public class TestClass
     public static int StaticValueProp { get; set; } = 0;
     public static int StaticValueField = 0;
 
+    public static int StaticMethod(int value, out int result)
+    {
+        result = value++;
+        return value;
+    }
+
+    public int Method(ref int value) => --value;
 }
 
 public static class ConsoleExtension
@@ -41,13 +48,30 @@ public class Tests
     }
 
     [Test]
+    public void TestCtor()
+    {
+        Type.GetConstructors()[0].CreateCtor().Invoke().WriteLine();
+    }
+    
+    [Test]
+    public void TestInvoke()
+    {
+        var method = Type.GetMethod(nameof(TestClass.Method))!.CreateInvoker();
+        method.Invoke(new TestClass(), 1).WriteLine();
+        method = Type.GetMethod(nameof(TestClass.StaticMethod))!.CreateInvoker();
+        var args = new object?[] { 1, null };
+        method.Invoke(null, args).WriteLine();
+        Debugger.Break();
+    }
+    
+    [Test]
     public void TestValueType()
     {
         var Prefix = "Value";
         var prop = Type.GetProperty($"{Prefix}Prop")!;
         var field = Type.GetField($"{Prefix}Field")!;
         var i = 1;
-        TestIL(new TestClass(), prop, field, () => i++);
+        TestGetterAndSetter(new TestClass(), prop, field, () => i++);
     }
 
     [Test]
@@ -56,10 +80,10 @@ public class Tests
         var Prefix = "Ref";
         var prop = Type.GetProperty($"{Prefix}Prop")!;
         var field = Type.GetField($"{Prefix}Field")!;
-        TestIL(new TestClass(), prop, field, () => new RefClass());
+        TestGetterAndSetter(new TestClass(), prop, field, () => new RefClass());
     }
     
-    public void TestIL<TTarget, TValue>(TTarget? instance, PropertyInfo prop, FieldInfo field, Func<TValue> valueGetter)
+    public void TestGetterAndSetter<TTarget, TValue>(TTarget? instance, PropertyInfo prop, FieldInfo field, Func<TValue> valueGetter)
     {
         var objInst = (object?)instance;
         prop.CreateSetter<TTarget, object>().Invoke(ref instance,  valueGetter());
