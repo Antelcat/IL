@@ -1,4 +1,4 @@
-# ILGeneratorEx
+# Antelcat.ILGeneratorEx
 
 Extensions of ILGenerator and easily create delegates
 
