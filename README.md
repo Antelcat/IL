@@ -1,6 +1,6 @@
 # Antelcat.ILGeneratorEx
 
-Extensions of ILGenerator and easily create delegates
+Extensions of ILGenerator and the ability to create delegates more easily
 
 ## Emit Extension
 
