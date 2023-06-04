@@ -106,5 +106,32 @@ public class Tests
         Debugger.Break();
     }
 
+    [Test]
+    public void TestPerformance()
+    {
+        var method = Type.GetMethod($"{nameof(TestClass.Method)}")!;
+        var args = new object?[] { 1 };
+        var target = new TestClass();
+        var times = 1000;
+        var watch = new Stopwatch();
+        watch.Start();
+        while (times -- > 0)
+        {
+            method.Invoke(target, args);
+        }
+        watch.Stop();
+        Console.WriteLine($"Reflect cost {watch.ElapsedTicks} ticks");
 
+        var del = method.CreateInvoker();
+        watch = new Stopwatch();
+        watch.Start();
+        times = 1000;
+        while (times -- > 0)
+        {
+            del.Invoke(target, args);
+        }
+        watch.Stop();
+        Console.WriteLine($"IL cost {watch.ElapsedTicks} ticks");
+
+    }
 }
