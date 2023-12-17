@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Reflection;
-using Antelcat.Extensions;
+using Antelcat.IL.Extensions;
 
-namespace Antelcat.ILGeneratorEx.Test;
+namespace Antelcat.IL.Test;
 
 public class RefClass
 {

@@ -1,0 +1,59 @@
+<#@ template language="C#" debug="true" hostspecific="true" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Linq" #>
+<#
+	const string Namespace = "Antelcat.IL.Extensions";
+	var except = new List<string> {  
+		"MarkSequencePoint"  
+	};
+	var methods = typeof(System.Reflection.Emit.ILGenerator)
+		.GetMethods(BindingFlags.Instance | BindingFlags.Public)
+		.Where(x => x.ReturnType == typeof(void))
+		.Where(x => !except.Contains(x.Name));
+	
+	string PrintParam(ParameterInfo[] paramInfo) => 
+		paramInfo.Length == 0 
+			? "this ILGenerator il"
+			: paramInfo
+				.Select(x => $"{x.ParameterType.Name} {x.Name}")
+				.Aggregate("this ILGenerator il", (s, c) => $"{s}, {c}");
+
+	string PrintCall(IReadOnlyCollection<ParameterInfo> paramInfo) => 
+		paramInfo.Count == 0 
+			? string.Empty 
+			: paramInfo
+				.Select(x => $"{x.Name}")
+				.Aggregate(string.Empty, (s, c) => $"{s}, {c}")
+				.Substring(2);
+#>
+#if !NET && !NETSTANDARD
+using System;
+#endif
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.InteropServices;
+
+namespace <#=Namespace#>;
+
+public static partial class ILExtension
+{
+<# 
+foreach(var method in methods)
+{
+	var param = method.GetParameters();
+#>
+	public static ILGenerator <#=method.Name#>Ex(<#=PrintParam(param)#>)
+	{
+		il.<#=method.Name#>(<#=PrintCall(param)#>);
+		return il;
+	}
+
+<#
+}
+#>
+}

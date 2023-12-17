@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Antelcat.ILGeneratorEx\Antelcat.ILGeneratorEx.csproj" />
+      <ProjectReference Include="..\Antelcat.IL\Antelcat.IL.csproj" />
     </ItemGroup>
 
 </Project>
