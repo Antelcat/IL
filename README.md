@@ -1,4 +1,4 @@
-# Antelcat.ILGeneratorEx
+# Antelcat.IL
 
 Extensions of ILGenerator and the ability to create delegates more easily
 
@@ -7,7 +7,7 @@ Extensions of ILGenerator and the ability to create delegates more easily
 Along with [T4](https://learn.microsoft.com/zh-cn/visualstudio/modeling/code-generation-and-t4-text-templates?view=vs-2022) generated [ILExtension (Emit)](https://github.com/Antelcat/Antelcat.Shared/blob/main/src/Shared/IL/Extensions/ILExtension.g.cs), you can use Fluent Style EmitEx like :
 
 ```c#
-ilGenerator.EmitEx(OpCodes.Ldarg_0)
+iLGenerator.EmitEx(OpCodes.Ldarg_0)
                 .EmitEx(OpCodes.Ldind_Ref)
                 .EmitEx(OpCodes.Unbox_Any, targetType)
                 .EmitEx(OpCodes.Stloc_0)
@@ -20,24 +20,49 @@ ilGenerator.EmitEx(OpCodes.Ldarg_0)
 ### Supports
 
 You can use extensions to create targets from these sources :
+<table>
 
-| Source | Target |  
-| :---: | :---: |
-| Type   | Ctor<> |  
-| ConstructorInfo | Ctor<> |
-| PropertyInfo | Setter<,> & Getter<,> |
-| FieldInfo | Setter<,> & Getter<,> |
-| MethodInfo | Invoker<,> |
+<tr>
+    <th>Source</th>
+    <th>Target</th>
+</tr>
+
+<tr>
+    <td>Type</td>
+    <td rowspan=2>CtorHandler<></td>
+</tr>
+
+<tr>
+    <td>ConstructorInfo</td>
+</tr>
+
+<tr>
+    <td> PropertyInfo </td>
+    <td rowspan=2> SetHandler<,> & GetHandler<,> </td>
+</tr>
+
+<tr>
+    <td>FieldInfo</td> 
+</tr>
+
+<tr>
+    <td> MethodInfo </td>
+    <td rowspan=2> InvokeHandler<,> </td>
+</tr>
+
+</table>
   
 ### Usage
 
 Can be easily create delegate when you have a class like:
 
 ``` c#
-class Foo{
+class Foo
+{
     public Foo(int dependency){}
     public int Method(ref int val) => ++val;
-    public static int StaticMethod(int val, out int source) {
+    public static int StaticMethod(int val, out int source) 
+    {
         source = val--;
         return val;
     }
@@ -76,4 +101,4 @@ staticField.CreateGetter().Invoke(null);
 staticField.CreateSetter().Invoke(ref nothing, "value");
 ```
 
-Tests can be found in [UnitTest.cs](./src/Antelcat.ILGeneratorEx.Test/UnitTest.cs)
+Tests can be found in [UnitTest.cs](./src/Antelcat.IL.Test/UnitTest.cs)
